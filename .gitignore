@@ -1,1 +1,4 @@
 .ipynb_checkpoints/
+week1_beyond_pandas/dask-worker-space/
+week1_beyond_pandas/data/
+week1_beyond_pandas/output/
