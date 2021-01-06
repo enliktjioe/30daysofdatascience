@@ -2,3 +2,8 @@
 week1_beyond_pandas/dask-worker-space/
 week1_beyond_pandas/data/
 week1_beyond_pandas/output/
+week1_beyond_pandas/cats-dogs.model/
+week1_beyond_pandas/cats-dogs.sframe/
+week1_beyond_pandas/MyTextMessageClassifier.model/
+week1_beyond_pandas/MyCustomImageClassifier.mlmodel
+week1_beyond_pandas/MyTextMessageClassifier.mlmodel
