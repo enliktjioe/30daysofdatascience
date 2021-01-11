@@ -92,12 +92,6 @@ get_ipython().run_cell_magic('time', '', "pandas_df.merge(pandas_df, on='b')")
 get_ipython().run_cell_magic('time', '', "cudf_df.merge(cudf_df, on='b')")
 
 
-
-
-
-
-
-
 import cudf
 gdf = cudf.read_csv(input_file)
 for column in gdf.columns:
@@ -120,9 +114,18 @@ print(tips_df.groupby('size').tip_percentage.mean())
 
 
 # ## Dask-CUDA
-
-# !conda install -c rapidsai dask-cudf
-
+# 
+# https://rapids.ai/start.html#get-rapids
+# 
+# Updated using:
+# 
+# `conda create -n rapids-0.17 -c rapidsai -c nvidia -c conda-forge \
+#     -c defaults rapids-blazing=0.17 python=3.7 cudatoolkit=11.0
+# `
+# 
+# `
+# conda activate rapids-0.17
+# `
 
 # source: https://github.com/rapidsai/cudf/issues/2288
 
