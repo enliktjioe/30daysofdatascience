@@ -10,6 +10,7 @@
 # - [5] https://stackabuse.com/introduction-to-data-visualization-in-python-with-pandas/
 # - [6] https://programminghistorian.org/en/lessons/visualizing-with-bokeh
 # - [7] https://programminghistorian.org/en/lessons/mapping-with-python-leaflet
+# - [8] https://towardsdatascience.com/introduction-to-data-visualization-in-python-89a54c97fbed
 
 # ### Notes
 # 
