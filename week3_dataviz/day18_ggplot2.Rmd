@@ -14,7 +14,7 @@ output: html_document
 ```{r}
 library(tidyverse)
 life_expec <- read.csv("data/life_expec.csv")
-life_expec
+head(life_expec)
 ```
 ```{r}
 colnames(life_expec)
