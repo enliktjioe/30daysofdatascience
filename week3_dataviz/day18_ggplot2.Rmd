@@ -1,0 +1,150 @@
+---
+title: "day 18 - ggplot2"
+author: "Enlik Tjioe"
+date: "1/18/2021"
+output: html_document
+---
+
+
+## References
+- https://www.dataquest.io/blog/data-visualization-in-r-with-ggplot2-a-beginner-tutorial/
+- http://zevross.com/blog/2014/08/04/beautiful-plotting-in-r-a-ggplot2-cheatsheet-3/
+
+## Import Data
+```{r}
+library(tidyverse)
+life_expec <- read.csv("data/life_expec.csv")
+life_expec
+```
+```{r}
+colnames(life_expec)
+```
+
+```{r}
+life_expec %>% 
+  filter(Year == 2000)
+```
+
+
+### Blank Graph Beginner Mistake in ggplot2
+```{r}
+life_expec <- life_expec %>%
+  filter(Race == "All Races", Sex == "Both Sexes")
+
+life_expec %>%
+  ggplot()
+```
+
+### Get the axes using ggplot Grammar of Graphics
+```{r}
+life_expec %>%
+  ggplot(aes(x = Year, y = Average.Life.Expectancy..Years.))
+```
+
+### Specifying Geoms
+```{r}
+life_expec %>%
+  ggplot(aes(x = Year, y = Average.Life.Expectancy..Years.)) +
+  geom_line()
+```
+
+### Adding a Title and Axis Labels
+```{r}
+life_expec %>% # data layer
+  ggplot(aes(x = Year, y = Average.Life.Expectancy..Years.)) + # axes layer
+  geom_line() + # geom layer
+  labs(  # annotations layer
+    title = "United States Life Expectancy: 100 Years of Change",
+    y = "Average Life Expectancy (Years)"
+  )
+```
+
+## From ZevRoss Tutorial
+```{r}
+nmmaps<-read.csv("data/chicago-nmmaps.csv", as.is=T)
+nmmaps$date<-as.Date(nmmaps$date)
+nmmaps<-nmmaps[nmmaps$date>as.Date("1996-12-31"),]
+nmmaps$year<-substring(nmmaps$date,1,4)
+head(nmmaps)
+```
+```{r}
+g<-ggplot(nmmaps, aes(date, temp))+geom_point(color="firebrick")
+g
+```
+```{r}
+g<-g+ggtitle('Temperature')
+g
+```
+
+```{r}
+g+theme(plot.title = element_text(size=20, face="bold", 
+    margin = margin(10, 0, 10, 0)))
+```
+### Additional Font Library
+```{r}
+library(extrafont)
+g+theme(plot.title = element_text(size=30,lineheight=.8, 
+  vjust=1,family="Bauhaus 93"))
+```
+```{r}
+g<-g+ggtitle("This is a longer\ntitle than expected")
+g+theme(plot.title = element_text(size=20, face="bold", vjust=1, lineheight=0.6))
+```
+### Working with Legends
+```{r}
+g<-ggplot(nmmaps, aes(date, temp, color=factor(season)))+geom_point()
+g
+```
+### Turn off the Legend Title
+```{r}
+g+theme(legend.title=element_blank())
+```
+
+### Change the style of Legend Title
+```{r}
+g+theme(legend.title = element_text(colour="chocolate", size=16, face="bold"))
+```
+### Change the Title of Legend
+```{r}
+g+theme(legend.title = element_text(colour="chocolate", size=16, face="bold"))+
+  scale_color_discrete(name="This color is\ncalled chocolate!?")
+```
+### Change the background box in legend
+```{r}
+g+theme(legend.key=element_rect(fill='pink'))
+```
+### Change the size of symbol in the legend only
+```{r}
+g+guides(colour = guide_legend(override.aes = list(size=6)))
+```
+
+### Leave the Layer off the Legend
+```{r}
+g+geom_text(data=nmmaps, aes(date, temp, label=round(temp)), size=4)
+```
+## Convert ggplot2 plot to Plotly
+
+- http://zevross.com/blog/2014/09/10/quickly-create-online-and-interactive-plots-using-plot-ly/
+- https://plotly.com/ggplot2/getting-started/
+
+### Dependencies
+```{r}
+#install.packages("devtools")
+#library("devtools")
+#install_github("ropensci/plotly")
+```
+
+
+```{r}
+g <- ggplot(nmmaps, aes(date, temp, color=factor(season)))+  geom_point() +   
+  scale_color_manual(values=c("dodgerblue4", "darkolivegreen4",  
+                              "darkorchid3", "goldenrod1"))
+g
+```
+
+```{r}
+library(plotly)
+g_plotly <- ggplotly(g)
+g_plotly
+```
+
