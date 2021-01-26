@@ -25,5 +25,11 @@ from IPython.display import Image
 Image(filename='img/django_hello_world.png')
 
 
+# ## Tips
+# 
+# - Default Django port is 8000, we can change into different port using this command:
+# 
+# `python manage.py runserver 8080`
+
 
 
