@@ -1,4 +1,8 @@
 library(shinydashboard)
+source("helpers.R")
+counties <- readRDS("data/counties.rds")
+library(maps)
+library(mapproj)
 
 ui <- fluidPage(
   titlePanel("censusVis"),
@@ -21,22 +25,48 @@ ui <- fluidPage(
                   min = 0, max = 100, value = c(0, 100))
     ),
     
-    mainPanel(
-      textOutput("selected_var"),
-      textOutput("min_max")
-    )
+    mainPanel(plotOutput("map"))
   )
 )
 
 server <- function(input, output) {
   
-  output$selected_var <- renderText({ 
-    paste("You have selected", input$var)
-  })
-  
-  output$min_max <- renderText({
-    paste("You have chosen a range that goes from ", input$range[1], " to ", input$range[2])
-  })
+  output$map <- renderPlot({
+    # data <- switch (input$var,
+    #                 "Percent White" = counties$white,
+    #                 "Percent Black" = counties$black,
+    #                 "Percent Hispanic" = counties$hispanic,
+    #                 "Percent Asian" = counties$asian)
+    # 
+    # color <- switch(input$var, 
+    #                 "Percent White" = "darkgreen",
+    #                 "Percent Black" = "black",
+    #                 "Percent Hispanic" = "darkorange",
+    #                 "Percent Asian" = "darkviolet")
+    # 
+    # legend <- switch(input$var, 
+    #                  "Percent White" = "% White",
+    #                  "Percent Black" = "% Black",
+    #                  "Percent Hispanic" = "% Hispanic",
+    #                  "Percent Asian" = "% Asian")
+    # 
+    # percent_map(var = data, color, legend, input$range[1], input$range[2])
+    
+    ## More concise
+    
+    args <- switch(input$var,
+                   "Percent White" = list(counties$white, "darkgreen", "% White"),
+                   "Percent Black" = list(counties$black, "black", "% Black"),
+                   "Percent Hispanic" = list(counties$hispanic, "darkorange", "% Hispanic"),
+                   "Percent Asian" = list(counties$asian, "darkviolet", "% Asian"))
+    
+    args$min <- input$range[1]
+    args$max <- input$range[2]
+    
+    do.call(percent_map, args)
+    
+    }
+  )
   
 }
 

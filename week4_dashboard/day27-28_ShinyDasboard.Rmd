@@ -13,8 +13,12 @@ output: html_document
 - In `./ShinyDashboard`
   - blank dashboard contains of: `app.R` and `ui.R`
 
-## Import Data
+## Use R Scripts and Data
 ```{r}
-
+library(maps)
+library(mapproj)
+source("ShinyDashboard/helpers.R")
+counties <- readRDS("ShinyDashboard/data/counties.rds")
+percent_map(counties$white, "darkgreen", "% White")
 ```
 
