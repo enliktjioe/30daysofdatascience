@@ -1,0 +1,20 @@
+---
+title: "day 27-28 - Shiny Dashboard"
+author: "Enlik Tjioe"
+date: "1/30/2021"
+output: html_document
+---
+
+
+## References
+- https://rstudio.github.io/shinydashboard/get_started.html
+
+## Workspace Folder
+- In `./ShinyDashboard`
+  - blank dashboard contains of: `app.R` and `ui.R`
+
+## Import Data
+```{r}
+
+```
+
