@@ -21,4 +21,5 @@ source("ShinyDashboard/helpers.R")
 counties <- readRDS("ShinyDashboard/data/counties.rds")
 percent_map(counties$white, "darkgreen", "% White")
 ```
-
+## Share as a Web Page
+- https://shiny.rstudio.com/tutorial/written-tutorial/lesson7/
